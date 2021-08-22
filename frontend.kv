@@ -1,0 +1,115 @@
+<StartScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout: #label grid 
+            spacing: 0, -40
+            cols:1
+            Label: 
+                text: "EasyExcel"
+                font_size: "80sp"
+            Label: 
+                text: "The easy way to create and edit spreadsheets for accounting."
+        GridLayout: #filepath input box and label
+            cols: 2
+            padding: 20, 50, 20, 0 
+            spacing: 10, 5
+            Label: 
+                size_hint: (0.1, None)
+                height: 30
+                font_size: "20sp"
+                text: "Filepath:"
+            TextInput: 
+                size_hint: (0.9, None)
+                height: 30
+                multiline: False
+                id: filepath
+                hint_text: "C:\\"
+                text: ""
+        GridLayout: #create new and browse buttons layout
+            cols: 2
+            padding: 20, -50, 20, 0
+            spacing: 20, 0
+            Button: 
+                size_hint: (0.5, None)
+                height: 50
+                text: "Create New"
+            Button: 
+                size_hint: (0.5, None)
+                height: 50
+                text: "Browse"          
+        GridLayout: #error label and edit button layout
+            cols: 1
+            padding: 20, -65, 20, 0
+            Button:
+                size_hint:(0.8, None)
+                height: 150
+                text: "Edit"
+                on_press: root.edit()
+            Label: 
+                size_hint: (0.2, None)
+                id: wrong_file
+                text: ""
+
+<SheetEditor>:
+    GridLayout: 
+        cols: 1
+        RelativeLayout: 
+            Button: 
+                text: "Change File"
+                size_hint: (None, None)
+                height: 40
+                pos_hint: {"center_x": 0.93, "center_y": 0.8} 
+        GridLayout: 
+            cols: 1
+            padding: 0, -210, 0, 0
+            spacing: 0, -230
+            Label: 
+                text: "Add Entries"
+                font_size: "60sp"
+            Label: 
+                text: "Note: be careful to double check your entries, future edits can only be made directly through the Excel file."
+        GridLayout: #sheet and dollar amount text input grid
+            cols: 2
+            padding: 20, -70, 20, 0
+            spacing: 20, 0
+            TextInput: 
+                size_hint: (0.5, None)
+                height: 30
+                hint_text: "Sheet"
+            TextInput:
+                size_hint: (0.5, None)
+                height: 30
+                input_filter: "float"
+                hint_text: "Amount ($0.00)"
+        GridLayout: #comment and date text input grid
+            cols: 2
+            padding: 20, -140, 20, 0
+            spacing: 20, 0
+            TextInput:
+                size_hint: (0.5, None)
+                height: 30
+                hint_text: "Comment (Optional)"
+            TextInput: 
+                size_hint: (0.5, None)
+                height: 30
+                hint_text: "Date (Optional)"
+        GridLayout: #add entry button and error message label
+            cols: 1
+            padding: 20, -150, 20, 0
+            Button:
+                size_hint:(0.8, None)
+                height: 150
+                text: "Add"
+                on_press: root.edit()
+            Label: 
+                size_hint: (0.2, None)
+                id: error_message
+                text: ""
+
+<RootWidget>:
+    StartScreen:
+        name: "start_screen"
+    SheetEditor:
+        name: "sheet_editor"
+
+
