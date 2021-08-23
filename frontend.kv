@@ -11,7 +11,7 @@
                 text: "The easy way to create and edit spreadsheets for accounting."
         GridLayout: #filepath input box and label
             cols: 2
-            padding: 20, 50, 20, 0 
+            padding: 20, 30, 20, 0 
             spacing: 10, 5
             Label: 
                 size_hint: (0.1, None)
@@ -23,31 +23,37 @@
                 height: 30
                 multiline: False
                 id: filepath
-                hint_text: "C:\\"
+                hint_text: "C:/"
                 text: ""
         GridLayout: #create new and browse buttons layout
             cols: 2
-            padding: 20, -50, 20, 0
+            padding: 20, -70, 20, 0
             spacing: 20, 0
             Button: 
                 size_hint: (0.5, None)
                 height: 50
                 text: "Create New"
+                on_release: root.create_new()
             Button: 
                 size_hint: (0.5, None)
                 height: 50
-                text: "Browse"          
+                text: "Browse"  
+                on_release: root.browse()        
         GridLayout: #error label and edit button layout
             cols: 1
-            padding: 20, -65, 20, 0
+            padding: 20, -85, 20, 20
             Button:
                 size_hint:(0.8, None)
                 height: 150
                 text: "Edit"
-                on_press: root.edit()
+                on_press: root.edit(root.ids.filepath.text)
             Label: 
                 size_hint: (0.2, None)
                 id: wrong_file
+                font_size: "20sp"
+                text_size: self.size
+                halign: "center"
+                valign: "center"
                 text: ""
 
 <SheetEditor>:
@@ -59,6 +65,7 @@
                 size_hint: (None, None)
                 height: 40
                 pos_hint: {"center_x": 0.93, "center_y": 0.8} 
+                on_release: root.previous_sheet()
         GridLayout: 
             cols: 1
             padding: 0, -210, 0, 0
@@ -67,7 +74,7 @@
                 text: "Add Entries"
                 font_size: "60sp"
             Label: 
-                text: "Note: be careful to double check your entries, future edits can only be made directly through the Excel file."
+                text: "Be careful to double check your entries, future edits can only be made directly through the Excel file."
         GridLayout: #sheet and dollar amount text input grid
             cols: 2
             padding: 20, -70, 20, 0
@@ -75,11 +82,13 @@
             TextInput: 
                 size_hint: (0.5, None)
                 height: 30
+                id: sheet_name
                 hint_text: "Sheet"
             TextInput:
                 size_hint: (0.5, None)
                 height: 30
                 input_filter: "float"
+                id: dollar_amount
                 hint_text: "Amount ($0.00)"
         GridLayout: #comment and date text input grid
             cols: 2
@@ -88,23 +97,28 @@
             TextInput:
                 size_hint: (0.5, None)
                 height: 30
+                id: comment
                 hint_text: "Comment (Optional)"
             TextInput: 
                 size_hint: (0.5, None)
                 height: 30
+                id: date
                 hint_text: "Date (Optional)"
         GridLayout: #add entry button and error message label
             cols: 1
-            padding: 20, -150, 20, 0
+            padding: 20, -150, 20, 0 
             Button:
                 size_hint:(0.8, None)
                 height: 150
                 text: "Add"
-                on_press: root.edit()
+                on_release: root.add(root.ids.sheet_name.text, root.ids.dollar_amount.text, root.ids.comment.text, root.ids.date.text)
             Label: 
                 size_hint: (0.2, None)
                 id: error_message
-                text: ""
+                text_size: self.size
+                halign: "center"
+                valign: "center"
+                text: "Note: Edits cannot be made while the file you are editing is open.\nMake sure it is closed, or the program will crash."
 
 <RootWidget>:
     StartScreen:
