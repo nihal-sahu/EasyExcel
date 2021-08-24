@@ -91,6 +91,8 @@ class SheetEditor(Screen):
         
         with pandas.ExcelWriter(filepath, engine="openpyxl", mode='a', if_sheet_exists = "replace") as writer:  
             current_sheet.to_excel(writer, sheet_name = sheet_name, )
+        
+        self.ids.error_message.text = f"Entry of ${dollar_amount} successfully added to {sheet_name}"
 
 
 class RootWidget(ScreenManager):
